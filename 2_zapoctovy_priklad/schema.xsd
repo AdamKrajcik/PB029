@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+	<xsd:element name="people">
+		<xsd:complexType>
+			<xsd:choice >
+				<xsd:element name="person" type="person-type" minOccurs="0" maxOccurs="unbounded"/>
+			</xsd:choice>
+		</xsd:complexType>
+	</xsd:element>
+	
+	<xsd:complexType name="person-type">
+		<xsd:sequence>
+			<xsd:element name="firstname" type="name-type"/>
+			<xsd:element name="lastname" type="name-type"/>
+			<xsd:element name="email" type="extended-email-type" minOccurs="0" maxOccurs="unbounded"/>
+			<xsd:element name="phone" type="extended-phone-type" minOccurs="0" maxOccurs="unbounded"/>
+			<xsd:element name="link" type="extended-link-type" minOccurs="0" maxOccurs="unbounded"/>
+			<xsd:element name="other" type="other-type" minOccurs="0" maxOccurs="unbounded"/>
+			<xsd:element name="address" type="address-type" minOccurs="0" maxOccurs="unbounded"/>
+			<xsd:element name="note" type="xsd:string" minOccurs="0" maxOccurs="unbounded"/>
+		</xsd:sequence>
+	</xsd:complexType>
+
+	<xsd:simpleType name="name-type">
+		<xsd:restriction base="xsd:string">
+			<xsd:maxLength value="30"/>
+			<xsd:pattern value="[\w \-]+"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+
+	<xsd:complexType name="address-type">
+		<xsd:sequence>
+			<xsd:element name="street" type="street-type"/>
+			<xsd:element name="number" type="number-type"/>
+			<xsd:element name="postCode" type="postCode-type"/>
+			<xsd:element name="city" type="city-type"/>
+		</xsd:sequence>
+	</xsd:complexType>
+
+	<xsd:complexType name="other-type">
+		<xsd:sequence>
+			<xsd:element name="service" type="service-type"/>
+			<xsd:element name="id" type="id-type"/>
+		</xsd:sequence>
+	</xsd:complexType>
+
+	<xsd:simpleType name="contact-type">
+		<xsd:restriction base="xsd:string">
+			<xsd:enumeration value="osobní"/>
+			<xsd:enumeration value="pracovní"/>
+			<xsd:enumeration value="jiná"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+
+	<xsd:simpleType name="basic-phone-type">
+		<xsd:restriction base="xsd:string">
+			<xsd:pattern value="[\d ]+[\d]"/>
+			<xsd:maxLength value="20"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+
+	<xsd:simpleType name="basic-link-type">
+		<xsd:restriction base="xsd:string">
+			<xsd:pattern value="[^ ]+"/>
+			<xsd:maxLength value="3000"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+
+
+	<xsd:simpleType name="basic-email-type">
+		<xsd:restriction base="xsd:string">
+			<xsd:pattern value="[^@]{1,64}@[^@]{1,63}"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	
+		<xsd:simpleType name="service-type">
+		<xsd:restriction base="xsd:string">
+			<xsd:pattern value="[\w]+"/>
+			<xsd:maxLength value="32"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	
+		<xsd:simpleType name="id-type">
+		<xsd:restriction base="xsd:string">
+			<xsd:pattern value="[^ ]+"/>
+			<xsd:maxLength value="64"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	
+	<xsd:complexType name="extended-email-type">
+		<xsd:simpleContent>
+			<xsd:extension base="basic-email-type">
+				<xsd:attribute name="type" type="contact-type"/>
+			</xsd:extension>
+		</xsd:simpleContent>
+	</xsd:complexType>
+	
+	<xsd:complexType name="extended-phone-type">
+		<xsd:simpleContent>
+			<xsd:extension base="basic-phone-type">
+				<xsd:attribute name="type" type="contact-type"/>
+			</xsd:extension>
+		</xsd:simpleContent>
+	</xsd:complexType>
+	
+	<xsd:complexType name="extended-link-type">
+		<xsd:simpleContent>
+			<xsd:extension base="basic-link-type">
+				<xsd:attribute name="type" type="contact-type"/>
+			</xsd:extension>
+		</xsd:simpleContent>
+	</xsd:complexType>
+	
+	<xsd:simpleType name="street-type">
+		<xsd:restriction base="xsd:string">
+			<xsd:pattern value="[\w\.\- ]+"/>
+			<xsd:maxLength value="100"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	
+	<xsd:simpleType name="number-type">
+		<xsd:restriction base="xsd:string">
+			<xsd:pattern value="[0-9]+[a-zA-Z]*"/>
+			<xsd:maxLength value="10"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	
+	<xsd:simpleType name="city-type">
+		<xsd:restriction base="xsd:string">
+			<xsd:pattern value="[\w\.\- ]+"/>
+			<xsd:maxLength value="50"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	
+		<xsd:simpleType name="postCode-type">
+		<xsd:restriction base="xsd:string">
+			<xsd:pattern value="[0-9]+"/>
+			<xsd:maxLength value="10"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	
+</xsd:schema>

@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<people xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="./schema.xsd">
+	<person>
+		<firstname>Janko</firstname>
+		<lastname>Kráľ</lastname>
+		<email type="osobní">janko555@gmail.com</email>
+		<phone type="pracovní">00421 915 651 818</phone>
+		<address>
+			<street>Slamkova</street>
+			<number>5</number>
+			<postCode>94907</postCode>
+			<city>Nitra</city>
+		</address>
+	</person>
+	<person>
+		<firstname>Jozef</firstname>
+		<lastname>Mrkva</lastname>
+		<email>jozko.mrkva@gmail.com</email>
+	</person>
+	<person>
+		<firstname>Adam</firstname>
+		<lastname>Šangala</lastname>
+		<address>
+			<street>Slamkova</street>
+			<number>5</number>
+			<postCode>94907</postCode>
+			<city>Nitra</city>
+		</address>
+		<note>Pozn8mka na jeden riadok.
+		</note>
+	</person>
+	<person>
+		<firstname>Martin</firstname>
+		<lastname>Krt</lastname>
+		<phone>00421 915 651 818</phone>
+	</person>
+	<person>
+		<firstname>Edna</firstname>
+		<lastname>Módna</lastname>
+		<link type="jiná">www.google.sk</link>
+	</person>
+</people>

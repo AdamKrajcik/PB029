@@ -1,0 +1,54 @@
+% Začátek preambule.
+
+\documentclass[a4paper]{article}
+
+\usepackage[resetfonts]{cmap}
+
+\usepackage{lmodern}
+
+\usepackage[slovak]{babel}
+
+\usepackage[utf8]{inputenc}
+
+\usepackage[T1]{fontenc}
+
+\usepackage{hyperref}
+
+\usepackage[protrusion,expansion]{microtype}
+
+\usepackage{idxlayout}
+
+\usepackage[backend=biber, style=numeric, sorting=none]{biblatex}
+\addbibresource{literatura.bib}
+
+\usepackage{makeidx}
+\makeindex
+
+\usepackage{graphicx}
+
+% Konec preambule.
+
+% Začátek dokumentu.
+\begin{document}
+
+\section*{Úvod}
+V~súčasnosti je vývoj softvéru neúprosne rýchly. Každý deň sa na svete objavujú nové a~nové aplikácie. Či už sú to desktopové, mobilné alebo cloudové  aplikácie, každá z~nich bola implementovaná podľa určitého vzoru – architektúry\index{architektúra}~\cite{enterprise}. V~prípade veľkých projektov je jej správny výber veľmi dôležitý, pretože zlá možnosť môže spôsobiť programovo neriešiteľné alebo finančne náročné problémy. Jedná sa hlavne o~serverové enterprise (podnikové) aplikácie, ktoré musia podporovať pripájanie rôznych klientov zostávajúcich z~rôznorodých desktopových/mobilných prehliadačov a~aplikácií. Systém komunikuje na princípe požiadaviek, ktoré sú spracovávané a~následne je odoslaná odpoveď so žiadanými informáciami.
+
+Existuje viacero vzorov, ako tieto aplikácie navrhovať a~následne použitím zaužívaných frameworkov  implementovať. Najrozšírenejšia jemonolitická architektúra\index{ architektúra!monolitická}~\cite{monolithic}. Aplikácia vytvorená podľa tejto architektúry pracuje ako samostatná jednotka, ktorá spája všetku funkcionalitu (UI , prácu s~databázou, pracovnú logiku) do jedného procesu. Druhým vzorom, ktorý k~tomuto problému pristupuje práve opačným prístupom sú mikroslužby\index{architektúra!mikroslužby}~\cite{micro} (ďalej len MS). Aplikácia navrhnutá na princípe MS je modulárna, t. j. sa skladá z~množstva nezávislých komponent, ktoré pracujú samostatne a~sú nahraditeľné. Sú nimi služby napísané v~rôznych programovacích jazykoch, čím sa môže zabrániť vzniku obmedzení spôsobených nepoužiteľnosťou daného jazyka v~určitých situáciách. Využíva ju viacero obrovských internetových služieb, ako napríklad Netflix alebo Amazon.
+
+Platforma SilverWare\index{SilverWare}~\cite{silver} je projektom tímu z~firmy Red Hat\index{Red Hat}. Je to implementácia MS postavená na už existujúcich technológiách a~zaužívaných frameworkoch. Je prevažne určená pre enterprise aplikácie\index{enterprise aplikácia}, ale vhodná aj pre menšie projekty. Jej cieľom je zjednodušiť vstup programátora do sveta  MS a~umožnil mu naplno využiť všetky výhody, ktoré aplikácia navrhnutá podľa tejto architektúrou môže mať.
+
+Pri tvorbe riešenia bolo prvým krokom naštudovanie si systému a~v~ňom použitých technológií. Nasledovala analýza fungovania komunikačných metód jednotlivých technológii. Tu platforma podporuje 4 poskytovateľov mikroslužieb, ktorými sú ActiveMQ, Camel, Vert.X a~Weld, pričom Každý z~nich využíva iný spôsob komunikácie (napr. správy, prúdy). To spôsobuje nekompatibilitu prepojenia medzi jednotlivými komponentami priamo. Prvým návrhom riešenie bolo vytvorenie prostredníka, ktorý skonvertuje požiadavky zaslané jednou službou do formátu, ktorému bude rozumieť služba, ktorá má požiadavky prijať a~zaslať odpoveď opačným smerom. Následne vedúci práce doplnil do návrhu použitie medziformátu na zníženie počtu konvertorov a~zvýšenie efektivity. Návrh sa ešte raz skontroloval, namodelovali sa možné kritické situácie a~ich riešenia, a~plán bol schválený. Potom nasledovalo programovanie  implementácia komunikačnej vrstvy. Tá je napísaná v~jazyku Java. Sú v~nej použité rovnaké technológie, aké aj v~systéme, doplnené o~rozhranie na prácu s~medziformátom.
+
+Práca popisuje technológie a~proces tvorby komunikačnej vrstvy, ktorá prešla integračnými testami a~bola nasadená do systému, kde je plne využívaná. Vrstva tiež dosiahla vo výkonnostných testoch pri väčšom zaťažení dobré výsledky aj malú chybovosť .  Ako sa bude MS rozvíjať, platforma SilverWare sa stane dôležitou, voľne šíriteľnou implementáciou tejto architektúry. Systém je voľne dostupný na stránke \url{http://www.silverware.com}.
+
+\printindex
+
+\setcounter{biburllcpenalty}{7000}
+\setcounter{biburlucpenalty}{8000}
+
+\printbibliography
+
+\section*{Môj obrázok}
+\includegraphics{mpimage-001.mps}
+\end{document}

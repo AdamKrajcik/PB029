@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<people xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="schema.xsd">
+	<person>
+		<firstname>Jozef</firstname>
+		<lastname>Mrkva</lastname>
+		<address>
+			<street>Slamk//ova</street>
+			<number>5</number>
+			<postCode>94907</postCode>
+			<city>Nitra</city>
+		</address>
+	</person>
+</people>
