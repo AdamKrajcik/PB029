@@ -1,0 +1,93 @@
+\NeedsTeXFormat{LaTeX2e}
+
+% Namísto explicitního zadávání přesuň povinné prvky odpovědního listu do
+% automaticky generovaného záhlaví a zápatí.
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\fancyhead{}
+\fancyhead[C]{\odplist}
+\fancyfoot{}
+\fancyfoot[C]{\endodplist}
+\renewcommand{\headrulewidth}{0pt}
+\renewcommand{\footrulewidth}{0pt}
+
+% Nastavení parametrů stránky bylo přejato ze začátku prostředí
+% `\as@assgnsheet`.
+\hoffset = -1in
+\oddsidemargin = 2.2cm
+\evensidemargin = \oddsidemargin
+\textwidth = 16.6cm
+\voffset = -1in
+\topmargin = 1cm
+\headheight = 3.3cm
+\headsep = -0.3cm
+\textheight = \paperheight
+\advance\textheight by -2\topmargin
+\advance\textheight by -\headheight
+\advance\textheight by -\headsep
+\advance\textheight by -0.5cm
+\footskip = 1pt
+\hsize=\textwidth
+\@colht\textheight
+\@colroom\textheight \vsize\textheight
+
+% Argument balíčku je přejat jako uživatelovo UČO.
+\def\as@uco{12345}
+\DeclareOption*{\edef\as@uco{\CurrentOption}}
+\ProcessOptions\relax
+
+% Předefinované prostředí `\as@assgnsheet` z `scanexam.cls`.
+% Prostředí nyní sází uživatelovo UČO a nepřijímá jako argument číslo
+% odpovědníku.
+\def\odplist{%
+    % automatické počítadlo listů
+    \stepcounter{assgnsheet}%
+    % povinné vodící značky v záhlaví stránky
+    \marks@top
+    % konfigurovatelný text před strojově čitelnými údaji
+    \as@pretext
+    \ifx\as@pretext\empty \vskip \size@rect@shift\fi
+    % strojově čitelné údaje
+    \digitsline{%
+        \digitsfield{as}{formtype}[7]%
+        \digitsfield{as}{sheet}[\theassgnsheet]%
+        \digitsfield{as}{uco}[\as@uco]%
+        \digitsfield{as}{points}[\ifnum\theassgnsheet=1\relax\else0\fi]%
+    }%
+    % dělicí čára
+    \as@posttext
+}
+
+% Defaultní text následující těsně za číslicovými informacemi byl zredukován na
+% dělicí čáru.
+\def\as@posttext{%
+    \medskip
+    \hbox to \textwidth{\box1\hfil\box0}
+    \medskip
+    \hrule height 1pt depth 0pt
+}
+
+% Ukončení prostředí.
+\def\endodplist{%
+    % konfigurovatelný text na konci stránky
+    \as@bottomtext
+    \vskip -\size@rect@length
+    \marks@bottom
+}
+
+% Příkaz pro vkládání PDF dokumentů.
+\usepackage{graphicx}
+\newcommand\vlozPDF[2][]{%
+    \newpage
+    \vspace*{\fill}%
+    \centerline{%
+        \includegraphics[%
+            height=\textheight,
+            width=\textwidth,
+            keepaspectratio, #1
+        ]{%
+            #2%
+        }%
+    }%
+    \vspace*{\fill}%
+}
